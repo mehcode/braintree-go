@@ -71,6 +71,15 @@ func (r *Response) address() (*Address, error) {
 	return &b, nil
 }
 
+func (r *Response) paymentMethodNonce() (*PaymentMethodNonce, error) {
+	var b PaymentMethodNonce
+	fmt.Println(string(r.Body))
+	if err := xml.Unmarshal(r.Body, &b); err != nil {
+		return nil, err
+	}
+	return &b, nil
+}
+
 func (r *Response) addOns() ([]AddOn, error) {
 	var b AddOnList
 	if err := xml.Unmarshal(r.Body, &b); err != nil {
